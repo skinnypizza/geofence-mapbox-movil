@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "755143515931",
+    "firebase_url": "https://geocercas-f89b1-default-rtdb.firebaseio.com",
+    "project_id": "geocercas-f89b1",
+    "storage_bucket": "geocercas-f89b1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755143515931:android:93ec71428732bf0ac7bdbe",
+        "android_client_info": {
+          "package_name": "com.example.geofencemapbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl6XGDZeRbUdKC7QD8NHJXhN3KQfPEX14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
