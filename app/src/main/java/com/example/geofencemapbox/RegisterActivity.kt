@@ -6,16 +6,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.geofencemapbox.databinding.ActivityLoginBinding
+import com.example.geofencemapbox.databinding.ActivityRegisterBinding
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
     private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupListeners()
@@ -23,20 +23,27 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        binding.btnLogin.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
+            val confirmPassword = binding.etConfirmPassword.text.toString().trim()
 
-            if (email.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            authViewModel.loginUser(email, password)
+            if (password != confirmPassword) {
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            authViewModel.registerUser(email, password)
         }
 
-        binding.btnGoToRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+        binding.btnGoToLogin.setOnClickListener {
+            // Cierra esta actividad y vuelve a Login
+            finish()
         }
     }
 
@@ -45,17 +52,17 @@ class LoginActivity : AppCompatActivity() {
             when (result) {
                 is AuthResult.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
-                    binding.btnLogin.isEnabled = false
+                    binding.btnRegister.isEnabled = false
                 }
                 is AuthResult.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnLogin.isEnabled = true
-                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    binding.btnRegister.isEnabled = true
+                    Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
                     goToMainActivity()
                 }
                 is AuthResult.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnLogin.isEnabled = true
+                    binding.btnRegister.isEnabled = true
                     Toast.makeText(this, "Error: ${result.message}", Toast.LENGTH_LONG).show()
                 }
             }

@@ -37,6 +37,8 @@ android {
     }
     buildFeatures {
         compose = true
+        // Activamos ViewBinding
+        viewBinding = true
     }
 }
 
@@ -68,6 +70,10 @@ dependencies {
     // Importar el Bill of Materials (BOM) de Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
 
-    // Declarar la dependencia de Realtime Database (sin versión)
+    // Dependencias de Firebase
     implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx") // <-- Añadida
+
+    // ViewModel KTX para arquitectura MVVM
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3") // <-- Añadida
 }
